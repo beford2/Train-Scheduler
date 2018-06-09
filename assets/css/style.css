@@ -1,0 +1,68 @@
+th, td {
+    padding: 5px 0 5px 0;
+}
+
+table.train-schedule-table tr:hover td {
+    background-color: rgb(228, 228, 228);
+}
+
+form {
+    margin: auto;
+    margin-top: 10px;
+    text-align: left;
+    width: 100%;
+    padding: 20px;
+}
+
+input {
+    width: 100%;
+}
+
+.jumbotron {
+    width: 100%;
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    background-color: #1b4ba5;
+    color: #ffffff;
+}
+
+.info-titles {
+    border-bottom: 2px solid rgb(168, 168, 168);
+}
+
+.train-schedule-table {
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    border-collapse: collapse;
+    
+}
+
+.main-board {
+    border: 3px solid hsl(212, 74%, 54%);
+    border-radius: 10px;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.main-info-board {
+    padding: 10px 20px 30px 20px;
+}
+
+.top-title {
+    padding: 10px 0 10px 0;
+    width: 100%;
+    margin: auto;
+    background-color: hsl(212, 74%, 54%);
+    border-color: hsl(212, 74%, 54%);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-family: 'Roboto Slab', serif;
+    color: white;
+    text-align: center;
+}
+
+

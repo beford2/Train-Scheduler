@@ -3,68 +3,94 @@
     <head>
         <meta charset="utf-8">
         <title>Train Scheduler</title>
-        <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
+
+        <!--JQuery Refrence-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <!--Bootstrap Refrence-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/logic.js"></script>
+
+        <!--CSS Refrence-->
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+
+        <!--Firebase Refrence-->
+        <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
+
+        <!-- Moment.js Reference -->
+        <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+
     </head>
     <body>
 
-
-        
-        
-
-
         <div class="container">
+
+            <div class="jumbotron">
+                <h1 class="display-4">Train Schedule</h1>
+                <p class="lead">All aboard!</p>
+            </div>
+            
             <div class="row">
-                <div class="col-md-2">
-                    <div id="name">
-
+                <div class="col-md-12">
+                    <div class="main-board">
+                        <div class="top-title">Current Train Schedule</div>
+                        <div class="main-info-board">
+                            <table class="train-schedule-table" id="train-table">
+                                <thead>
+                                    <tr class="info-titles">
+                                        <th>Train Name</th>
+                                        <th>Destination</th>
+                                        <th>Frequency (min)</th>
+                                        <th>Next Arrival</th>
+                                        <th>Minutes Away</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="train-info-table">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <div id="destination">
+            </div>
 
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div id="frequency">
-
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div id="arrival-time">
-
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div id="wait-time">
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="main-board">
+                        <div class="top-title">Add Train</div>
+                        <form>
+                            <div class="form-group">
+                                <label for="train-name">Train Name</label>
+                                <input type="text" id="train-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="destination">Destination</label>
+                                <input type="text" id="destination">
+                            </div>
+                            <div class="form-group">
+                                <label for="train-time">First Train Time (HH:mm - military time)</label>
+                                <input type="text" id="train-time">
+                            </div>
+                            <div class="form-group">
+                                <label for="frequency">Frequency (min)</label>
+                                <input type="text" id="frequency">
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <form>
-            <div class="form-group">
-                <label for="train-name">Train Name</label>
-                <input type="text" id="train-name">
-            </div>
-            <div class="form-group">
-                <label for="destination">Destination</label>
-                <input type="text" id"destination">
-            </div>
-            <div class="form-group">
-                <label for="train-time">First Train Time (HH:mm - military time)</label>
-                <input type="text" id"train-time">
-            </div>
-            <div class="form-group">
-                <label for="frequency">Frequency (min)</label>
-                <input type="text" id="frequency">
-            </div>
-            <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
-          </form>
+        
+        
+
+        
+        
+
+          <script type="text/javascript" src="assets/js/logic.js"></script>
     </body>
 </html>

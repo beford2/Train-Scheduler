@@ -9,79 +9,75 @@ var config = {
 };
 firebase.initializeApp(config);
 
-var database = firebase.database();
+var trainData = firebase.database();
 
 var initialTrain = "no name has been typed";
 var initialDestination = "no destination yet";
 var initialTime = "00:00";
-var initialFrequency = 0;
+var initialFrequency = "";
 
 var trainName = initialTrain;
 var destination = initialDestination;
 var time = initialTime;
 var frequency = initialFrequency;
 
-
-database.ref("/trainInfo").on("value", function(snapshot) {
-
-    
-    console.log(snapshot.val());
-    if(snapshot.child("trainName").exists() && snapshot.child("destination").exists() && snapshot.child("frequency").exists() && snapshot.child("time").exists()) {
-        trainName = snapshot.val().trainName;
-        destination = snapshot.val().destination;
-        frequency = snapshot.val().frequency;
-        time = snapshot.val().time;
-        
-        $("#name").text(snapshot.val().trainName);
-        $("#destination").text(snapshot.val().destination);
-        $("#frequency").text(snapshot.val().frequency);
-        $("#arrival-time").text(snapshot.val().time);
-
-        console.log(snapshot.val().trainName);
-        console.log(snapshot.val().destination);
-        console.log(snapshot.val().frequency);
-        console.log(snapshot.val().time);
-    }
-    else {
-
-        $("#name").text(trainName);
-        $("#destination").text(destination);
-        $("#frequency").text(frequency);
-        $("#arrival-time").text(time);
-
-
-    }
-
-}, function(errorObject) {
-    console.log("The read failed: " + errorObject.code);
-});
-
-$(document).on("click", "#submit-btn", function(event) {
-    event.preventDefault();
-
+$("#submit-btn").on("click", function() {
     
     var newTrainName = $("#train-name").val().trim();
     var newDestination = $("#destination").val().trim();
-    var newFrequency = parseInt($("#frequency").val().trim());
-    var newTime = $("#train-time").val();
+    var newTime = $("#train-time").val().trim();
+    var newFrequency = $("#frequency").val().trim();
 
-    console.log(newTrainName);
-    console.log(newDestination);
-    console.log(newFrequency);
-    console.log(newTime);
-    
-    database.ref("/trainInfo").set({
-        trainName: newTrainName,
+
+    var newTrain = {
+        name: newTrainName,
         destination: newDestination,
-        frequency: newFrequency,
-        time: newTime
-      });
+        time: newTime,
+        frequency: newFrequency
+    }
+    
+    trainData.ref("/trainData").push(newTrain);
 
-      $("#name").text(newTrainNam);
-      $("#destination").text(newTrainNam);
-      $("#frequency").text(newTrainNam);
-      $("#arrival-time").text(newTrainNam);
+    $("#train-name").val("");
+    $("#destination").val("");
+    $("#frequency").val("");
+    $("#train-time").val("");
+
+    return false;
+    
+});
 
 
-      
+trainData.ref("/trainData").on("child_added", function(snapshot) {
+
+    console.log(snapshot.val());
+
+    var tName = snapshot.val().name;
+    var tDestination = snapshot.val().destination;
+    var tFrequency = snapshot.val().frequency;
+    var tTime = snapshot.val().time;
+
+    var timeArray = tTime.split(":");
+    var trainTime = moment().hours(timeArray[0]).minutes(timeArray[1]);
+    var nextMoment = moment.max(moment(), trainTime);
+    var tMin;
+    var tArrive;
+
+    if(nextMoment === trainTime) {
+        tMin = trainTime.diff(moment(), "minutes");
+        tArrive = trainTime.format("hh:mm A");
+    }
+    else{
+        var diffTime = moment().diff(trainTime, "mintues");
+        var tRemainder = diffTime % tFrequency;
+        tMin = tFrequency - tRemainder;
+
+        tArrive = moment().add(tMin, "m").format("hh:mm A");
+    }
+
+    
+    $("#train-info-table").append("<tr class='tain-info' style='border-top: 1px solid rgb(168, 168, 168)'><td>" + tName + "</td><td>" + tDestination + "</td><td>" +  tFrequency + "</td><td>" + tArrive + "</td><td>" + tMin + "</td></tr>");
+
+}, function(errorObject) {
+    console.log("The read failed: " + errorObject.code);
 });
